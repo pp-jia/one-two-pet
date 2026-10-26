@@ -39,9 +39,9 @@ if ([string]::IsNullOrWhiteSpace($DshHome)) {
 $TargetRoot = Join-Path $DshHome 'dsh-pet'
 $TargetPet = Join-Path $TargetRoot 'pet'
 
-$ConfigFiles = @('yier-config.json', 'bubu-config.json', 'duo-config.json')
+$ConfigFiles = @('yier-config.json', 'bubu-config.json', 'duo-config.json', 'yier-hd-config.json')
 $DirNames = @(
-    'yier-animation', 'bubu-animation', 'duo-animation',
+    'yier-animation', 'bubu-animation', 'duo-animation', 'yier-hd-animation',
     'yier-memes', 'bubu-memes', 'duo-memes'
 )
 

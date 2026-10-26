@@ -25,6 +25,7 @@
 | 余额动画 | 6 档（钱包鼓鼓 → 空空如也），默认关闭，可在配置里打开 |
 | 多开 | 同一角色可放多只；默认一二在左上、布布在右上，双人同框默认隐藏 |
 | 桌面模式 | 把配置里的 `display` 改成 `both` / `desktop`，dsh-pet 会拉起透明置顶小窗 |
+| HD 样片 | 一段 720p 绿幕视频抠像后的 `待机HD`，放在 `yier-hd` 样片包里，默认隐藏，用来对比质感 |
 
 > 动画为 640×360 透明 VP9-alpha WebM；实际播放时透明背景，棋盘格只出现在预览图里。
 
@@ -49,6 +50,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 yier-config.json   yier-animation\   yier-memes\
 bubu-config.json   bubu-animation\   bubu-memes\
 duo-config.json    duo-animation\    duo-memes\
+yier-hd-config.json  yier-hd-animation\   # 可选 HD 样片，默认 display: none
 ```
 
 然后**刷新 DSH 页面**（或右键任意宠物 →「重载配置」）。宠物默认出现位置：
@@ -117,11 +119,29 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1 --preview-only
 
 ## 已验证
 
-- `GET /dsh-pet-7340/config` 返回 `main, bubu, duo, yier` 四个条目，三个 pack 的 `animations` 全部通过 dsh-pet 校验
-- 105 个 `.webm`（3 × 35）全部由 `/dsh-pet-7340/thumb/<pack>/<name>.webm` 以 `video/webm` 200 返回
+- `GET /dsh-pet-7340/config` 返回 `main, bubu, duo, yier, yier-hd` 五个条目；三个完整 pack + 一个 HD 样片全部通过 dsh-pet 校验
+- 105 个像素动画 + 1 个 HD 样片全部由 `/dsh-pet-7340/thumb/<pack>/<name>.webm` 以 `video/webm` 200 返回
 - 实机截图中一二、布布、大肥鱼同屏；双人包通过 `pet-display` 切到 `web` 后验证，再切回默认
 - 点击一二能触发点击回应动画；工作状态气泡会跟随当前 DSH 会话显示
 - 解码检查：640×360、24fps、`alpha_mode=1`，透明角落 alpha=0
+
+## HD 样片（可选）
+
+`yier-hd` 是一个单动作样片：把 720p 绿幕 MP4 抠像、缩放、编码成 640×360 VP9-alpha 的 `待机HD.webm`。
+默认 `display: "none"`；想看对比就把 `yier-hd-config.json` 的 `display` 改成 `"web"`。
+
+![像素版与 HD 版对比](previews/user-hd-compare.png)
+
+![HD 版抠像后的单帧](previews/yier-hd-待机HD.png)
+
+导入新视频：
+
+```powershell
+python scripts/import_video.py --input "C:\path\to\待机.mp4" --name "待机HD" --pack yier-hd
+```
+
+`--crop` 默认是 `330,20,960,710`，用于 1280×720、角色居中、四角有"豆包 AI 生成"水印的视频；
+换分辨率或构图时请先调 `--crop`。抠像参数在 `scripts/import_video.py` 的 `key_frame()` 里。
 
 ## 素材来源与动画表
 
