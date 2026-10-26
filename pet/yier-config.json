@@ -1,0 +1,197 @@
+{
+  "pets": [
+    {
+      "balanceEnabled": false,
+      "whisperEnabled": false,
+      "workStatusEnabled": true,
+      "fixedEnabled": false,
+      "display": "web",
+      "whisperPrompt": "你是「一二」，一只白色圆润、深棕色圆耳朵、粉色腮红、没有眉毛的软萌小角色。性格温柔、害羞、有点小迷糊，说话轻声细语，喜欢安静陪着主人。每次只说一句很短的话（20字以内），自然随意，不要解释自己是AI，不要提表情包或版权。",
+      "id": "yier",
+      "name": "一二",
+      "size": 280,
+      "position": {
+        "corner": "top-left",
+        "marginX": 24,
+        "marginY": 160
+      }
+    }
+  ],
+  "animations": {
+    "idle": [
+      "待机",
+      "发会儿呆",
+      "打瞌睡",
+      "摇摇晃晃",
+      "数星星"
+    ],
+    "turn": [
+      "东张西望"
+    ],
+    "drag": [
+      "悬空挣扎"
+    ],
+    "clicks": [
+      "元气挥手",
+      "开心跳跳",
+      "委屈巴巴",
+      "认真看手机",
+      "捧杯暖手"
+    ],
+    "moves": {
+      "default": {
+        "minDist": 60,
+        "maxDist": 260,
+        "margin": 20,
+        "leadSec": 0.9,
+        "tailSec": 0.8
+      },
+      "actions": [
+        {
+          "name": "小跑"
+        },
+        {
+          "name": "一蹦一跳",
+          "params": {
+            "minDist": 40,
+            "maxDist": 160
+          }
+        },
+        {
+          "name": "欢快冲刺",
+          "params": {
+            "minDist": 180,
+            "maxDist": 420,
+            "leadSec": 0.7,
+            "tailSec": 0.6
+          }
+        },
+        {
+          "name": "悄悄走",
+          "params": {
+            "minDist": 80,
+            "maxDist": 220,
+            "leadSec": 1.1,
+            "tailSec": 1.0
+          }
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": "小动作",
+        "weight": 22,
+        "actions": [
+          "元气挥手",
+          "发会儿呆",
+          "打瞌睡",
+          "伸懒腰",
+          "转圈圈",
+          "数星星",
+          "摇摇晃晃"
+        ]
+      },
+      {
+        "id": "玩耍",
+        "weight": 14,
+        "actions": [
+          "开心跳跳",
+          "追逐泡泡",
+          "转圈圈",
+          "数星星"
+        ]
+      },
+      {
+        "id": "吃什么",
+        "weight": 8,
+        "actions": [
+          "捧杯暖手"
+        ]
+      },
+      {
+        "id": "文字",
+        "weight": 8,
+        "noMirror": true,
+        "actions": [
+          "是啊，吃什么",
+          "深度思考"
+        ]
+      },
+      {
+        "id": "时节",
+        "weight": 6,
+        "actions": [
+          "新年好"
+        ]
+      }
+    ],
+    "events": {
+      "balance": [
+        "余额-钱包鼓鼓",
+        "余额-数金币",
+        "余额-钱包还好",
+        "余额-有点心疼",
+        "余额-快见底",
+        "余额-空空如也"
+      ],
+      "whisper": [
+        "碎碎念-点头",
+        "元气挥手",
+        "认真看手机"
+      ],
+      "workStatus": [
+        "工作状态-思考冒泡",
+        "工作状态-忙碌敲键盘",
+        "工作状态-清点归档",
+        "工作状态-原地踱步张望",
+        "工作状态-雀跃庆祝",
+        "工作状态-垂头叹气冒汗"
+      ]
+    }
+  },
+  "animationWeights": {
+    "idle": 24,
+    "turn": 6,
+    "move": 12
+  },
+  "workStatusTexts": [
+    [
+      "让我想想哦…",
+      "脑袋里在冒泡泡…"
+    ],
+    [
+      "正在认真干活呢",
+      "敲敲敲，马上就好"
+    ],
+    [
+      "这一步搞定啦",
+      "整理一下，继续～"
+    ],
+    [
+      "等你确认一下下",
+      "这里要你来看看哦"
+    ],
+    [
+      "完成啦，击个掌！",
+      "这一轮辛苦啦～"
+    ],
+    [
+      "好像卡住了…",
+      "呜，这里出错了"
+    ]
+  ],
+  "memes": {
+    "一二-好奇": "圆眼睛好奇地看着你，适合待机、提问",
+    "一二-挥手": "抬起小手打招呼，适合问候、回应",
+    "一二-开心": "蹦起来开心庆祝，适合完成、好消息",
+    "一二-害羞": "脸红害羞、眼泪汪汪，适合被夸、撒娇",
+    "一二-喝茶": "捧着热饮暖手，适合休息、下午茶",
+    "一二-看手机": "认真盯着小手机，适合思考、等待回复"
+  },
+  "notificationsEnabled": false,
+  "clickSoundEnabled": false,
+  "whisperImageEnabled": true,
+  "chatImageEnabled": true,
+  "confineToScreen": false,
+  "trayEnabled": false
+}

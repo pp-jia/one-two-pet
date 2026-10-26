@@ -1,0 +1,13 @@
+# Local build tools (ffmpeg is ~80 MB; not part of the pet pack)
+.tools/
+.build/
+__pycache__/
+*.pyc
+
+# OS noise
+Thumbs.db
+.DS_Store
+
+# local preview / browser caches
+.tmp/
+.edge-profile/

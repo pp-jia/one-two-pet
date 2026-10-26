@@ -1,0 +1,197 @@
+{
+  "pets": [
+    {
+      "balanceEnabled": false,
+      "whisperEnabled": false,
+      "workStatusEnabled": true,
+      "fixedEnabled": false,
+      "display": "web",
+      "whisperPrompt": "你是「布布」，一只奶茶棕色、深棕色描边、黄色腮红、总是一副困困表情的小熊。性格慵懒、治愈、呆萌，说话慢悠悠，喜欢睡觉和热饮，偶尔冒出一句冷幽默。每次只说一句很短的话（20字以内），自然随意，不要解释自己是AI，不要提表情包或版权。",
+      "id": "bubu",
+      "name": "布布",
+      "size": 280,
+      "position": {
+        "corner": "top-right",
+        "marginX": 24,
+        "marginY": 160
+      }
+    }
+  ],
+  "animations": {
+    "idle": [
+      "待机",
+      "发会儿呆",
+      "打瞌睡",
+      "摇摇晃晃",
+      "数星星"
+    ],
+    "turn": [
+      "东张西望"
+    ],
+    "drag": [
+      "悬空挣扎"
+    ],
+    "clicks": [
+      "元气挥手",
+      "开心跳跳",
+      "委屈巴巴",
+      "认真看手机",
+      "捧杯暖手"
+    ],
+    "moves": {
+      "default": {
+        "minDist": 60,
+        "maxDist": 260,
+        "margin": 20,
+        "leadSec": 0.9,
+        "tailSec": 0.8
+      },
+      "actions": [
+        {
+          "name": "小跑"
+        },
+        {
+          "name": "一蹦一跳",
+          "params": {
+            "minDist": 40,
+            "maxDist": 160
+          }
+        },
+        {
+          "name": "欢快冲刺",
+          "params": {
+            "minDist": 180,
+            "maxDist": 420,
+            "leadSec": 0.7,
+            "tailSec": 0.6
+          }
+        },
+        {
+          "name": "悄悄走",
+          "params": {
+            "minDist": 80,
+            "maxDist": 220,
+            "leadSec": 1.1,
+            "tailSec": 1.0
+          }
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": "小动作",
+        "weight": 22,
+        "actions": [
+          "元气挥手",
+          "发会儿呆",
+          "打瞌睡",
+          "伸懒腰",
+          "转圈圈",
+          "数星星",
+          "摇摇晃晃"
+        ]
+      },
+      {
+        "id": "玩耍",
+        "weight": 14,
+        "actions": [
+          "开心跳跳",
+          "追逐泡泡",
+          "转圈圈",
+          "数星星"
+        ]
+      },
+      {
+        "id": "吃什么",
+        "weight": 8,
+        "actions": [
+          "捧杯暖手"
+        ]
+      },
+      {
+        "id": "文字",
+        "weight": 8,
+        "noMirror": true,
+        "actions": [
+          "是啊，吃什么",
+          "深度思考"
+        ]
+      },
+      {
+        "id": "时节",
+        "weight": 6,
+        "actions": [
+          "新年好"
+        ]
+      }
+    ],
+    "events": {
+      "balance": [
+        "余额-钱包鼓鼓",
+        "余额-数金币",
+        "余额-钱包还好",
+        "余额-有点心疼",
+        "余额-快见底",
+        "余额-空空如也"
+      ],
+      "whisper": [
+        "碎碎念-点头",
+        "元气挥手",
+        "认真看手机"
+      ],
+      "workStatus": [
+        "工作状态-思考冒泡",
+        "工作状态-忙碌敲键盘",
+        "工作状态-清点归档",
+        "工作状态-原地踱步张望",
+        "工作状态-雀跃庆祝",
+        "工作状态-垂头叹气冒汗"
+      ]
+    }
+  },
+  "animationWeights": {
+    "idle": 24,
+    "turn": 6,
+    "move": 12
+  },
+  "workStatusTexts": [
+    [
+      "困困地想…",
+      "让我眯一会儿再想"
+    ],
+    [
+      "慢慢做，不着急",
+      "在努力啦…"
+    ],
+    [
+      "这步好了，呼",
+      "收好收好"
+    ],
+    [
+      "等你点头哦",
+      "不急，我等你"
+    ],
+    [
+      "搞定，想睡觉了",
+      "完成…奖励一杯奶茶？"
+    ],
+    [
+      "卡住了，呜呜",
+      "出错啦，抱抱我"
+    ]
+  ],
+  "memes": {
+    "布布-困困": "半眯着眼、困困的布布，适合犯困、待机、想睡觉",
+    "布布-挥手": "抬起小爪子打招呼，适合问候、回应",
+    "布布-开心": "蹦起来开心庆祝，适合完成、好消息",
+    "布布-委屈": "眼泪汪汪、委屈巴巴，适合出错、撒娇",
+    "布布-喝茶": "捧着热饮暖手，适合休息、喝下午茶",
+    "布布-看手机": "认真盯着小手机，适合思考、等待回复"
+  },
+  "notificationsEnabled": false,
+  "clickSoundEnabled": false,
+  "whisperImageEnabled": true,
+  "chatImageEnabled": true,
+  "confineToScreen": false,
+  "trayEnabled": false
+}
