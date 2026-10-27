@@ -18,7 +18,6 @@
 | --- | --- |
 | 35 段像素动画 | 9 行动作图集 + 程序化小特效（爱心、Zzz、金币、气泡、问号、汗滴、月亮、红包…） |
 | 5 段 HD 动画 | `yier-hd`：待机 / 荡秋千 / 脑阔疼 / 拜托球球你 / 护肤，720p 绿幕抠像，默认显示 |
-| 图形配置页 | 独立 `one-two-pet` DSH 插件，在设置里提供「一二 HD」面板（显示 / 大小 / 位置 / 热重载） |
 | 角色 | `一二 HD`（默认）、像素 `一二`（默认隐藏）、`布布`、`一二布布`（双人同框，默认隐藏） |
 | 点击回应 | 像素：元气挥手 / 开心跳跳 / 委屈巴巴 / 认真看手机 / 捧杯暖手；HD：荡秋千 / 拜托 / 脑阔疼 / 护肤 |
 | 拖拽甩抛 | 悬空挣扎动画 + dsh-pet 的弹簧跟手、抛物线、屏幕反弹、落地 Q 弹（HD 版沿用物理，暂无拖拽专用姿势） |
@@ -99,15 +98,13 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Uninstall
 `size` 是舞台宽度（px），高度按 9:16 自动算；`position.corner` 支持
 `top-left` / `top-right` / `bottom-left` / `bottom-right`。
 
-### 图形化配置页（one-two-pet 插件）
+### 插件安装（给别人用）
 
-dsh-pet 自己的「桌宠配置」只管理 main 条目（大肥鱼），不会列出 `yier-hd` 这种文件宠物。
-所以本项目额外做了一个 **独立的 DSH 插件**：安装后，DSH 设置里会出现 **「一二 HD」** 页面，
-可以直接改显示位置 / 大小 / 角落 / 边距，保存后触发热重载。
+本项目同时是一个 **DSH 插件 bundle** `one-two-pet`：安装 / 加载时把
+`pet/yier-hd-config.json` + 5 段动画复制到 `$DSH_HOME/dsh-pet/pet/`。
+**没有设置页**，不会在 DSH 设置里新增面板；配置仍然改 JSON 文件。
 
-![一二 HD 配置页](previews/settings-page.png)
-
-安装（本地包，开发/自用）：
+本地包安装：
 
 ```powershell
 dsh plugin --profile desktop add file:D:/smallProject/zhuochong/one-two-pet
@@ -119,21 +116,19 @@ dsh plugin --profile desktop add file:D:/smallProject/zhuochong/one-two-pet
 dsh plugin --profile desktop add one-two-pet
 ```
 
-> 宿主半侧插件要**重启 DSH** 才会加载；只刷新页面不够。当前会话里我还没有重启你的 DSH，
-> 所以这个页面要等你下次重启后才会出现。
+> 宿主半侧插件要**重启 DSH** 才会加载；只刷新页面不够。
 
-插件源码与发布说明：
-
-- 宿主路由 / 安装素材：[`plugin/index.js`](plugin/index.js)
-- 配置页：[`plugin/settings.html`](plugin/settings.html)
-- 设置区注册：[`plugin/client.js`](plugin/client.js)
-- 发布到 npm / GitHub：[`PUBLISH.md`](PUBLISH.md)
-
-如果不想装插件，也可以直接改：
+配置仍然直接改：
 
 ```text
 C:\Users\ppj\.dsh\dsh-pet\pet\yier-hd-config.json
 ```
+
+插件源码与发布说明：
+
+- 安装逻辑：[`plugin/index.js`](plugin/index.js)（无路由、无客户端、无设置页）
+- bundle patch：[`cordis.patch.yml`](cordis.patch.yml)
+- 发布到 npm / GitHub：[`PUBLISH.md`](PUBLISH.md)
 
 常用字段：
 
@@ -242,7 +237,7 @@ one-two-pet/
 │  ├─ sprites/bubu/spritesheet.webp
 │  └─ references/                        # 上游参考图 / 动作参考 / 许可证
 ├─ video/hd/                             # 5 段绿幕源视频（待机/秋千/脑阔疼/拜托/护肤）
-├─ plugin/                               # DSH 插件：宿主路由 + 配置页 + 设置区
+├─ plugin/                               # DSH 插件：安装 pet pack 的 bundle（无 UI）
 ├─ prompts/                              # 动作提示词（hd-actions / reference-image-blocks）
 ├─ scripts/
 │  ├─ render.py                          # 切图、合成、特效、VP9 编码
