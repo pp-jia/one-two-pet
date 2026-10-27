@@ -1,0 +1,4 @@
+# one-two-pet 的 bundle patch：把配置页插件挂进 DSH 配置树
+- insert:
+    - id: one-two-pet
+      name: 'one-two-pet'

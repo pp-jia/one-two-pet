@@ -1,0 +1,80 @@
+{
+  "name": "one-two-pet",
+  "version": "1.0.0",
+  "description": "一二 HD 桌宠：DeepSeek Harness（DSH）的 dsh-pet pet pack + 独立配置页，含 5 段 720p 绿幕抠像动画。",
+  "type": "module",
+  "main": "plugin/index.js",
+  "exports": {
+    ".": {
+      "default": "./plugin/index.js"
+    },
+    "./client": {
+      "default": "./plugin/client.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "plugin",
+    "pet/yier-hd-config.json",
+    "pet/yier-hd-animation",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "PUBLISH.md",
+    "previews/settings-page.png",
+    "previews/hd-actions-mid.png",
+    "previews/dsh-hd-only.png"
+  ],
+  "scripts": {
+    "check": "node --check plugin/index.js && node --check plugin/client.js"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "desktop-pet",
+    "pet",
+    "one-two",
+    "bubu",
+    "一二布布"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection"
+      ],
+      "platform": "web"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.1-rc.2": "compatible"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.4",
+    "@deepseek-ai/dsh-client-ui-slots": "^0.2.0-rc.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "dsh-pet": ">=0.3.8"
+  },
+  "peerDependenciesMeta": {
+    "dsh-pet": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pp-jia/one-two-pet.git"
+  },
+  "homepage": "https://github.com/pp-jia/one-two-pet#readme"
+}

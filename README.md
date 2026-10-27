@@ -18,6 +18,7 @@
 | --- | --- |
 | 35 段像素动画 | 9 行动作图集 + 程序化小特效（爱心、Zzz、金币、气泡、问号、汗滴、月亮、红包…） |
 | 5 段 HD 动画 | `yier-hd`：待机 / 荡秋千 / 脑阔疼 / 拜托球球你 / 护肤，720p 绿幕抠像，默认显示 |
+| 图形配置页 | 独立 `one-two-pet` DSH 插件，在设置里提供「一二 HD」面板（显示 / 大小 / 位置 / 热重载） |
 | 角色 | `一二 HD`（默认）、像素 `一二`（默认隐藏）、`布布`、`一二布布`（双人同框，默认隐藏） |
 | 点击回应 | 像素：元气挥手 / 开心跳跳 / 委屈巴巴 / 认真看手机 / 捧杯暖手；HD：荡秋千 / 拜托 / 脑阔疼 / 护肤 |
 | 拖拽甩抛 | 悬空挣扎动画 + dsh-pet 的弹簧跟手、抛物线、屏幕反弹、落地 Q 弹（HD 版沿用物理，暂无拖拽专用姿势） |
@@ -98,16 +99,37 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Uninstall
 `size` 是舞台宽度（px），高度按 9:16 自动算；`position.corner` 支持
 `top-left` / `top-right` / `bottom-left` / `bottom-right`。
 
-### 为什么没有「一二桌宠」的设置页？
+### 图形化配置页（one-two-pet 插件）
 
-这是 dsh-pet 的现有设计，不是配置丢了：
+dsh-pet 自己的「桌宠配置」只管理 main 条目（大肥鱼），不会列出 `yier-hd` 这种文件宠物。
+所以本项目额外做了一个 **独立的 DSH 插件**：安装后，DSH 设置里会出现 **「一二 HD」** 页面，
+可以直接改显示位置 / 大小 / 角落 / 边距，保存后触发热重载。
 
-- DSH 设置里的「桌宠配置」只管理 **main 条目**（大肥鱼）；
-- `yier-hd`、`bubu`、`duo` 都是 **pet pack（文件宠物）**，dsh-pet 明确不在设置页列出它们，
-  只在页面底部提示「另 N 只额外宠物由 pet/ 目录文件定义」；
-- 文件宠物的配置就是 `%USERPROFILE%\.dsh\dsh-pet\pet\<name>-config.json`，改完刷新/重载即可。
+![一二 HD 配置页](previews/settings-page.png)
 
-当前一二 HD 的配置在：
+安装（本地包，开发/自用）：
+
+```powershell
+dsh plugin --profile desktop add file:D:/smallProject/zhuochong/one-two-pet
+```
+
+发布到 npm 后给别人装：
+
+```powershell
+dsh plugin --profile desktop add one-two-pet
+```
+
+> 宿主半侧插件要**重启 DSH** 才会加载；只刷新页面不够。当前会话里我还没有重启你的 DSH，
+> 所以这个页面要等你下次重启后才会出现。
+
+插件源码与发布说明：
+
+- 宿主路由 / 安装素材：[`plugin/index.js`](plugin/index.js)
+- 配置页：[`plugin/settings.html`](plugin/settings.html)
+- 设置区注册：[`plugin/client.js`](plugin/client.js)
+- 发布到 npm / GitHub：[`PUBLISH.md`](PUBLISH.md)
+
+如果不想装插件，也可以直接改：
 
 ```text
 C:\Users\ppj\.dsh\dsh-pet\pet\yier-hd-config.json
@@ -130,8 +152,6 @@ C:\Users\ppj\.dsh\dsh-pet\pet\yier-hd-config.json
 ```
 
 布布现在默认 `display: "none"`，想放出来就把 `bubu-config.json` 的 `display` 改回 `"web"`。
-如果你想要一个真正的图形化「一二 HD 配置页」，需要额外做一个小设置面板；现有 dsh-pet 的设置页
-不会列出文件宠物。
 
 ## 构建（想改素材时）
 
@@ -222,6 +242,7 @@ one-two-pet/
 │  ├─ sprites/bubu/spritesheet.webp
 │  └─ references/                        # 上游参考图 / 动作参考 / 许可证
 ├─ video/hd/                             # 5 段绿幕源视频（待机/秋千/脑阔疼/拜托/护肤）
+├─ plugin/                               # DSH 插件：宿主路由 + 配置页 + 设置区
 ├─ prompts/                              # 动作提示词（hd-actions / reference-image-blocks）
 ├─ scripts/
 │  ├─ render.py                          # 切图、合成、特效、VP9 编码
@@ -231,6 +252,7 @@ one-two-pet/
 │  ├─ check_packs.py                     # 静态校验（缺素材 / 权重 / 事件档位）
 │  ├─ install.ps1                        # 安装 / 卸载到 ~/.dsh/dsh-pet/pet
 │  └─ fetch-ffmpeg.ps1                   # 取一份 ffmpeg-static（可选）
+├─ package.json  cordis.patch.yml  PUBLISH.md   # DSH 插件清单 / bundle patch / 发布说明
 ├─ pet/                                  # 产物：像素 3 pack + yier-hd（5 段 HD）
 ├─ previews/                             # 预览图 / 动画预览页 / DSH 实机截图
 └─ docs/animations.md

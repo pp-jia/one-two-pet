@@ -11,3 +11,6 @@ Thumbs.db
 # local preview / browser caches
 .tmp/
 .edge-profile/
+
+# npm pack output
+*.tgz
