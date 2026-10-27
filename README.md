@@ -8,9 +8,9 @@
 像素版会和大肥鱼一样自己呼吸、东张西望、小跑、打瞌睡、被拖起来甩出去；
 现在默认的一二是 5 段 **720p 绿幕抠像**的 HD 动作，先用“待机 / 秋千 / 脑阔疼 / 拜托 / 护肤”把质感拉起来。
 
-![一二 HD 与布布在 DSH 里](previews/dsh-hd-running.png)
+![一二 HD 在 DSH 里](previews/dsh-hd-only.png)
 
-> 实机截图：一二 HD（荡秋千）在左上、布布在左下，下面是大肥鱼；像素一二默认隐藏。
+> 实机截图：一二 HD 在左上（现在默认只显示它；布布、像素一二、双人同框都默认隐藏）。
 
 ## 现在有什么
 
@@ -25,7 +25,7 @@
 | 工作状态 | 思考冒泡 / 忙碌敲键盘 / 清点归档 / 原地踱步 / 雀跃庆祝 / 垂头叹气冒汗 |
 | 碎碎念 & 对话 | 专属人设提示词 + 表情包配图（`memes`）；自动碎碎念默认关闭，右键「碎碎念」仍可手动触发 |
 | 余额动画 | 6 档（钱包鼓鼓 → 空空如也），默认关闭，可在配置里打开 |
-| 多开 | 同一角色可放多只；默认一二 HD 在左上、布布在右上，像素一二和双人同框默认隐藏 |
+| 多开 | 同一角色可放多只；默认只有一二 HD 显示，布布、像素一二、双人同框默认隐藏 |
 | 桌面模式 | 把配置里的 `display` 改成 `both` / `desktop`，dsh-pet 会拉起透明置顶小窗 |
 
 > 动画为 640×360 透明 VP9-alpha WebM；实际播放时透明背景，棋盘格只出现在预览图里。
@@ -57,7 +57,7 @@ yier-hd-config.json  yier-hd-animation\   # HD 主宠（5 段动画，默认显�
 然后**刷新 DSH 页面**（或右键任意宠物 →「重载配置」）。宠物默认出现位置：
 
 - 一二 HD：左上，`size=280`，`marginX=24, marginY=160`，`display: "web"`
-- 布布：右上，`size=280`，`marginX=24, marginY=160`，`display: "web"`
+- 布布：默认 `display: "none"`（保留，可随时在 `bubu-config.json` 改回 `"web"`）
 - 像素一二：默认 `display: "none"`（保留，可随时切回）
 - 一二布布（双人）：`size=340`，默认 `display: "none"`，需要时把 `duo-config.json` 里改成 `"web"` 或 `"both"`
 
@@ -97,6 +97,41 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Uninstall
 
 `size` 是舞台宽度（px），高度按 9:16 自动算；`position.corner` 支持
 `top-left` / `top-right` / `bottom-left` / `bottom-right`。
+
+### 为什么没有「一二桌宠」的设置页？
+
+这是 dsh-pet 的现有设计，不是配置丢了：
+
+- DSH 设置里的「桌宠配置」只管理 **main 条目**（大肥鱼）；
+- `yier-hd`、`bubu`、`duo` 都是 **pet pack（文件宠物）**，dsh-pet 明确不在设置页列出它们，
+  只在页面底部提示「另 N 只额外宠物由 pet/ 目录文件定义」；
+- 文件宠物的配置就是 `%USERPROFILE%\.dsh\dsh-pet\pet\<name>-config.json`，改完刷新/重载即可。
+
+当前一二 HD 的配置在：
+
+```text
+C:\Users\ppj\.dsh\dsh-pet\pet\yier-hd-config.json
+```
+
+常用字段：
+
+```jsonc
+{
+  "pets": [{
+    "display": "web",          // web / desktop / both / none
+    "size": 280,               // 舞台宽度
+    "position": { "corner": "top-left", "marginX": 24, "marginY": 160 }
+  }],
+  "animations": {
+    "idle": ["待机HD"],        // 改这里换待机动画
+    "clicks": ["荡秋千HD", "拜托球球你HD", "脑阔疼HD", "护肤HD"]
+  }
+}
+```
+
+布布现在默认 `display: "none"`，想放出来就把 `bubu-config.json` 的 `display` 改回 `"web"`。
+如果你想要一个真正的图形化「一二 HD 配置页」，需要额外做一个小设置面板；现有 dsh-pet 的设置页
+不会列出文件宠物。
 
 ## 构建（想改素材时）
 

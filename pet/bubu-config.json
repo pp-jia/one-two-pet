@@ -5,7 +5,7 @@
       "whisperEnabled": false,
       "workStatusEnabled": true,
       "fixedEnabled": false,
-      "display": "web",
+      "display": "none",
       "whisperPrompt": "你是「布布」，一只奶茶棕色、深棕色描边、黄色腮红、总是一副困困表情的小熊。性格慵懒、治愈、呆萌，说话慢悠悠，喜欢睡觉和热饮，偶尔冒出一句冷幽默。每次只说一句很短的话（20字以内），自然随意，不要解释自己是AI，不要提表情包或版权。",
       "id": "bubu",
       "name": "布布",
