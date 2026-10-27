@@ -110,5 +110,5 @@ foreach ($name in $DirNames) {
 
 $count = (Get-ChildItem -LiteralPath $TargetPet -Recurse -File | Measure-Object).Count
 Write-Host "`n已复制 $copied 项到 $TargetPet（共 $count 个文件）。" -ForegroundColor Green
-Write-Host "默认显示：一二 HD（左上） + 布布（右上）；像素一二默认隐藏；双人同框在 duo-config.json 里把 display 改成 web 即可。"
+Write-Host "默认只显示一二 HD（左上）；布布、像素一二、双人同框默认隐藏，可在各自 *-config.json 里改 display。"
 Write-Host "下一步：刷新 DSH 页面，或右键任意宠物 →「重载配置」。" -ForegroundColor Cyan
