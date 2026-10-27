@@ -56,16 +56,27 @@ def find_ffmpeg(explicit: str | None = None) -> str:
     raise FileNotFoundError("ffmpeg not found; put it in .tools/ffmpeg.exe or set FFMPEG_BIN")
 
 
-def key_frame(rgb: np.ndarray) -> Image.Image:
-    """Green-screen key + despill, returns straight-alpha RGBA."""
+def key_frame(rgb: np.ndarray, mode: str = "hsv") -> Image.Image:
+    """Green-screen key + despill, returns straight-alpha RGBA.
+
+    ``hsv`` is robust for the muted/olive green screens produced by Doubao
+    (H ~ 55-70, S ~ 60-100): the white body has S ~ 0, so it stays opaque.
+    ``dominance`` is the older G - max(R,B) test for bright #00FF00 screens.
+    """
     a = rgb.astype(np.float32)
-    r, g, b = a[:, :, 0], a[:, :, 1], a[:, :, 2]
-    # Green dominance.  White/brown/pink all have d <= 0; pure green d ~ 255.
-    d = g - np.maximum(r, b)
-    alpha = np.clip((58.0 - d) * 255.0 / 58.0, 0, 255)
+    if mode == "dominance":
+        r, g, b = a[:, :, 0], a[:, :, 1], a[:, :, 2]
+        d = g - np.maximum(r, b)
+        alpha = np.clip((58.0 - d) * 255.0 / 58.0, 0, 255)
+    else:
+        hsv = np.asarray(Image.fromarray(rgb.astype(np.uint8)).convert("HSV"), dtype=np.float32)
+        h, s, v = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
+        # PIL hue is 0-255 (0-360 deg).  Green is roughly 50-125.
+        green = (h > 50) & (h < 125) & (s > 28) & (v > 40)
+        alpha = np.where(green, 0.0, 255.0)
     am = Image.fromarray(alpha.astype(np.uint8))
     # Eat a 1px green fringe, then soften the matte.
-    am = am.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.9))
+    am = am.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.8))
     alpha = np.array(am).astype(np.float32)
     # Despill: never let green exceed the max of red/blue on kept pixels.
     a[:, :, 1] = np.minimum(a[:, :, 1], np.maximum(a[:, :, 0], a[:, :, 2]))
@@ -109,6 +120,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--fps", type=int, default=24)
     ap.add_argument("--crf", type=int, default=30)
     ap.add_argument("--ffmpeg", default=None)
+    ap.add_argument("--key-mode", choices=("hsv", "dominance"), default="hsv")
     ap.add_argument("--no-preview", action="store_true")
     args = ap.parse_args(argv)
 
@@ -192,7 +204,7 @@ def main(argv: list[str] | None = None) -> int:
             if len(buf) < frame_bytes:
                 break
             rgb = np.frombuffer(buf, dtype=np.uint8).reshape((ch, cw, 4))[:, :, :3]
-            rgba = key_frame(rgb)
+            rgba = key_frame(rgb, args.key_mode)
             if scale is None:
                 bbox = rgba.getchannel("A").point(lambda v: 255 if v > 12 else 0).getbbox()
                 if not bbox:
@@ -209,6 +221,11 @@ def main(argv: list[str] | None = None) -> int:
             layer = rgba.resize((sw, sh), Image.Resampling.LANCZOS)
             canvas = Image.new("RGBA", (640, 360), (0, 0, 0, 0))
             paste_clipped(canvas, layer, paste[0], paste[1])  # type: ignore[index]
+            # Remove ground-shadow / watermark speckles below the feet line.
+            if args.feet + 1 < 360:
+                arr = np.array(canvas)
+                arr[args.feet + 1 :, :, 3] = 0
+                canvas = Image.fromarray(arr)
             enc.stdin.write(canvas.tobytes())
             frames += 1
             if not args.no_preview and frames == 1:

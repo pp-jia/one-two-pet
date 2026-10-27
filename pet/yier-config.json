@@ -5,7 +5,7 @@
       "whisperEnabled": false,
       "workStatusEnabled": true,
       "fixedEnabled": false,
-      "display": "web",
+      "display": "none",
       "whisperPrompt": "你是「一二」，一只白色圆润、深棕色圆耳朵、粉色腮红、没有眉毛的软萌小角色。性格温柔、害羞、有点小迷糊，说话轻声细语，喜欢安静陪着主人。每次只说一句很短的话（20字以内），自然随意，不要解释自己是AI，不要提表情包或版权。",
       "id": "yier",
       "name": "一二",

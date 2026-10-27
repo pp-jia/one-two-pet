@@ -2,13 +2,13 @@
   "pets": [
     {
       "id": "yier-hd",
-      "name": "一二 HD（样片）",
+      "name": "一二 HD",
       "size": 280,
       "balanceEnabled": false,
       "whisperEnabled": false,
-      "workStatusEnabled": false,
+      "workStatusEnabled": true,
       "fixedEnabled": false,
-      "display": "none",
+      "display": "web",
       "position": {
         "corner": "top-left",
         "marginX": 24,
@@ -22,7 +22,12 @@
     ],
     "turn": [],
     "drag": [],
-    "clicks": [],
+    "clicks": [
+      "荡秋千HD",
+      "拜托球球你HD",
+      "脑阔疼HD",
+      "护肤HD"
+    ],
     "moves": {
       "default": {
         "minDist": 60,
@@ -33,34 +38,86 @@
       },
       "actions": []
     },
-    "categories": [],
+    "categories": [
+      {
+        "id": "玩耍",
+        "weight": 20,
+        "actions": [
+          "荡秋千HD"
+        ]
+      },
+      {
+        "id": "小动作",
+        "weight": 20,
+        "actions": [
+          "护肤HD",
+          "待机HD"
+        ]
+      },
+      {
+        "id": "情绪",
+        "weight": 20,
+        "actions": [
+          "拜托球球你HD",
+          "脑阔疼HD"
+        ]
+      }
+    ],
     "events": {
       "balance": [
         "待机HD",
+        "护肤HD",
         "待机HD",
-        "待机HD",
-        "待机HD",
-        "待机HD",
-        "待机HD"
+        "脑阔疼HD",
+        "脑阔疼HD",
+        "脑阔疼HD"
       ],
       "whisper": [
-        "待机HD"
+        "待机HD",
+        "护肤HD",
+        "荡秋千HD"
       ],
       "workStatus": [
         "待机HD",
-        "待机HD",
-        "待机HD",
-        "待机HD",
-        "待机HD",
-        "待机HD"
+        "脑阔疼HD",
+        "护肤HD",
+        "拜托球球你HD",
+        "荡秋千HD",
+        "脑阔疼HD"
       ]
     }
   },
   "animationWeights": {
-    "idle": 100,
+    "idle": 40,
     "turn": 0,
     "move": 0
   },
+  "workStatusTexts": [
+    [
+      "让我想想哦…",
+      "脑袋里在冒泡泡…"
+    ],
+    [
+      "正在认真干活呢",
+      "敲敲敲，马上就好"
+    ],
+    [
+      "这一步搞定啦",
+      "整理一下，继续～"
+    ],
+    [
+      "等你确认一下下",
+      "这里要你来看看哦"
+    ],
+    [
+      "完成啦，击个掌！",
+      "这一轮辛苦啦～"
+    ],
+    [
+      "好像卡住了…",
+      "呜，这里出错了"
+    ]
+  ],
   "notificationsEnabled": false,
   "clickSoundEnabled": false,
   "whisperImageEnabled": false,

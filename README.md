@@ -5,27 +5,28 @@
 
 本项目是一个 **dsh-pet pet pack**：复用 dsh-pet 的完整桌宠行为（待机链、点击回应、拖拽甩抛、
 屏幕漫游、多宠物、右键菜单、工作状态联动、碎碎念 / 对话、桌面透明窗），只替换角色素材和动画池。
-安装后，一二和布布会和大肥鱼一样，自己呼吸、东张西望、小跑、打瞌睡、被拖起来甩出去。
+像素版会和大肥鱼一样自己呼吸、东张西望、小跑、打瞌睡、被拖起来甩出去；
+现在默认的一二是 5 段 **720p 绿幕抠像**的 HD 动作，先用“待机 / 秋千 / 脑阔疼 / 拜托 / 护肤”把质感拉起来。
 
-![一二与布布在 DSH 里](previews/dsh-running.png)
+![一二 HD 与布布在 DSH 里](previews/dsh-hd-running.png)
 
-> 实机截图：左一二、右布布，下面是大肥鱼；三只共用一套 dsh-pet 引擎。
+> 实机截图：一二 HD（荡秋千）在左上、布布在左下，下面是大肥鱼；像素一二默认隐藏。
 
 ## 现在有什么
 
 | 能力 | 说明 |
 | --- | --- |
-| 35 段动画 | 9 行动作图集 + 程序化小特效（爱心、Zzz、金币、气泡、问号、汗滴、月亮、红包…） |
-| 角色 | `一二`、`布布`、`一二布布`（双人同框）三个独立 pet pack |
-| 点击回应 | 元气挥手 / 开心跳跳 / 委屈巴巴 / 认真看手机 / 捧杯暖手 |
-| 拖拽甩抛 | 悬空挣扎动画 + dsh-pet 的弹簧跟手、抛物线、屏幕反弹、落地 Q 弹 |
-| 自主漫游 | 小跑 / 一蹦一跳 / 欢快冲刺 / 悄悄走，真实位移，不走出屏幕 |
+| 35 段像素动画 | 9 行动作图集 + 程序化小特效（爱心、Zzz、金币、气泡、问号、汗滴、月亮、红包…） |
+| 5 段 HD 动画 | `yier-hd`：待机 / 荡秋千 / 脑阔疼 / 拜托球球你 / 护肤，720p 绿幕抠像，默认显示 |
+| 角色 | `一二 HD`（默认）、像素 `一二`（默认隐藏）、`布布`、`一二布布`（双人同框，默认隐藏） |
+| 点击回应 | 像素：元气挥手 / 开心跳跳 / 委屈巴巴 / 认真看手机 / 捧杯暖手；HD：荡秋千 / 拜托 / 脑阔疼 / 护肤 |
+| 拖拽甩抛 | 悬空挣扎动画 + dsh-pet 的弹簧跟手、抛物线、屏幕反弹、落地 Q 弹（HD 版沿用物理，暂无拖拽专用姿势） |
+| 自主漫游 | 像素版：小跑 / 一蹦一跳 / 欢快冲刺 / 悄悄走；HD 版暂无小跑素材，先原地待机/玩耍 |
 | 工作状态 | 思考冒泡 / 忙碌敲键盘 / 清点归档 / 原地踱步 / 雀跃庆祝 / 垂头叹气冒汗 |
 | 碎碎念 & 对话 | 专属人设提示词 + 表情包配图（`memes`）；自动碎碎念默认关闭，右键「碎碎念」仍可手动触发 |
 | 余额动画 | 6 档（钱包鼓鼓 → 空空如也），默认关闭，可在配置里打开 |
-| 多开 | 同一角色可放多只；默认一二在左上、布布在右上，双人同框默认隐藏 |
+| 多开 | 同一角色可放多只；默认一二 HD 在左上、布布在右上，像素一二和双人同框默认隐藏 |
 | 桌面模式 | 把配置里的 `display` 改成 `both` / `desktop`，dsh-pet 会拉起透明置顶小窗 |
-| HD 样片 | 一段 720p 绿幕视频抠像后的 `待机HD`，放在 `yier-hd` 样片包里，默认隐藏，用来对比质感 |
 
 > 动画为 640×360 透明 VP9-alpha WebM；实际播放时透明背景，棋盘格只出现在预览图里。
 
@@ -50,13 +51,14 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 yier-config.json   yier-animation\   yier-memes\
 bubu-config.json   bubu-animation\   bubu-memes\
 duo-config.json    duo-animation\    duo-memes\
-yier-hd-config.json  yier-hd-animation\   # 可选 HD 样片，默认 display: none
+yier-hd-config.json  yier-hd-animation\   # HD 主宠（5 段动画，默认显示）
 ```
 
 然后**刷新 DSH 页面**（或右键任意宠物 →「重载配置」）。宠物默认出现位置：
 
-- 一二：左上，`size=280`，`marginX=24, marginY=160`
-- 布布：右上，`size=280`，`marginX=24, marginY=160`
+- 一二 HD：左上，`size=280`，`marginX=24, marginY=160`，`display: "web"`
+- 布布：右上，`size=280`，`marginX=24, marginY=160`，`display: "web"`
+- 像素一二：默认 `display: "none"`（保留，可随时切回）
 - 一二布布（双人）：`size=340`，默认 `display: "none"`，需要时把 `duo-config.json` 里改成 `"web"` 或 `"both"`
 
 > 280 是照着当前大肥鱼的 `size=280` 调的；如果你把 DSH 窗口拉大或换 4K 屏，可以按比例一起调大。
@@ -119,29 +121,43 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1 --preview-only
 
 ## 已验证
 
-- `GET /dsh-pet-7340/config` 返回 `main, bubu, duo, yier, yier-hd` 五个条目；三个完整 pack + 一个 HD 样片全部通过 dsh-pet 校验
-- 105 个像素动画 + 1 个 HD 样片全部由 `/dsh-pet-7340/thumb/<pack>/<name>.webm` 以 `video/webm` 200 返回
-- 实机截图中一二、布布、大肥鱼同屏；双人包通过 `pet-display` 切到 `web` 后验证，再切回默认
-- 点击一二能触发点击回应动画；工作状态气泡会跟随当前 DSH 会话显示
+- `GET /dsh-pet-7340/config` 返回 `main, bubu, duo, yier, yier-hd` 五个条目；三个完整 pack + HD 主宠全部通过 dsh-pet 校验
+- 105 个像素动画 + 5 个 HD 动画 = 110 个 `.webm`，全部由 `/dsh-pet-7340/thumb/<pack>/<name>.webm` 以 `video/webm` 200 返回
+- 5 个 HD 动画名全部通过 `POST /anim` 点播验证（待机 / 荡秋千 / 脑阔疼 / 拜托 / 护肤）
+- 实机截图中一二 HD 在荡秋千、布布和大肥鱼同屏；像素一二默认隐藏
 - 解码检查：640×360、24fps、`alpha_mode=1`，透明角落 alpha=0
 
-## HD 样片（可选）
+## HD 主宠（yier-hd）
 
-`yier-hd` 是一个单动作样片：把 720p 绿幕 MP4 抠像、缩放、编码成 640×360 VP9-alpha 的 `待机HD.webm`。
-默认 `display: "none"`；想看对比就把 `yier-hd-config.json` 的 `display` 改成 `"web"`。
+现在默认显示的一二不是像素版，而是 `yier-hd`：把 4 段新绿幕 MP4 + 之前的待机视频抠像、缩放、
+编码成 640×360 VP9-alpha 的 5 段动画：
 
-![像素版与 HD 版对比](previews/user-hd-compare.png)
+| 动画 | 来源 | 用途 |
+| --- | --- | --- |
+| `待机HD` | 第一段待机视频 | idle |
+| `荡秋千HD` | (1).mp4 | 玩耍 / 点击回应 |
+| `脑阔疼HD` | (2).mp4 | 工作出错 / 情绪 |
+| `拜托球球你HD` | (3).mp4 | 点击 / 等待 |
+| `护肤HD` | (4).mp4 | 小动作 / idle 轮换 |
 
-![HD 版抠像后的单帧](previews/yier-hd-待机HD.png)
+![5 段 HD 动作](previews/hd-actions-mid.png)
 
-导入新视频：
+### 替换关系
+
+- `yier-hd` 默认 `display: "web"`，像素 `yier` 默认 `display: "none"`；布布保持显示。
+- 想切回像素一二：把 `yier-config.json` 改 `"web"`、`yier-hd-config.json` 改 `"none"`，刷新/重载。
+- 这 5 段都是**原地动作**，没有走路 / 拖拽 / 转向素材，所以 HD 版暂时不漫游、不换朝向；
+  拖拽、抛掷、点击仍然可用。后续补一段“小跑”就可以恢复漫游。
+
+### 导入新视频
 
 ```powershell
-python scripts/import_video.py --input "C:\path\to\待机.mp4" --name "待机HD" --pack yier-hd
+python scripts/import_video.py --input "C:\path\to\待机.mp4" --name "待机HD" --pack yier-hd --crop "330,20,960,710" --key-mode hsv
 ```
 
-`--crop` 默认是 `330,20,960,710`，用于 1280×720、角色居中、四角有"豆包 AI 生成"水印的视频；
-换分辨率或构图时请先调 `--crop`。抠像参数在 `scripts/import_video.py` 的 `key_frame()` 里。
+`--crop` 用于 1280×720、角色居中、四角有水印的视频；抠像参数在 `scripts/import_video.py` 的
+`key_frame()` 里。新视频是**低饱和绿幕**（不是 #00FF00）时用 `--key-mode hsv`，纯亮绿幕用
+`--key-mode dominance`。
 
 ## 素材来源与动画表
 
@@ -169,14 +185,19 @@ one-two-pet/
 ├─ assets/
 │  ├─ sprites/yier/spritesheet.webp      # 原始 1536×1872 图集
 │  ├─ sprites/bubu/spritesheet.webp
-│  └─ references/                        # 上游参考图 / 许可证（署名用）
+│  └─ references/                        # 上游参考图 / 动作参考 / 许可证
+├─ video/hd/                             # 5 段绿幕源视频（待机/秋千/脑阔疼/拜托/护肤）
+├─ prompts/                              # 动作提示词（hd-actions / reference-image-blocks）
 ├─ scripts/
 │  ├─ render.py                          # 切图、合成、特效、VP9 编码
-│  ├─ build_pet_pack.py                  # 动画表 + 配置生成 + 预览
+│  ├─ build_pet_pack.py                  # 像素 pack：动画表 + 配置 + 预览
+│  ├─ import_video.py                    # 绿幕 MP4 → 透明 WebM（HSV / dominance 抠像）
+│  ├─ build_hd.ps1                       # 批量重建 5 段 HD 动画
+│  ├─ check_packs.py                     # 静态校验（缺素材 / 权重 / 事件档位）
 │  ├─ install.ps1                        # 安装 / 卸载到 ~/.dsh/dsh-pet/pet
 │  └─ fetch-ffmpeg.ps1                   # 取一份 ffmpeg-static（可选）
-├─ pet/                                  # 产物：3 个 pack + 动画 + 表情包
-├─ previews/                             # 预览图 / 动画预览页
+├─ pet/                                  # 产物：像素 3 pack + yier-hd（5 段 HD）
+├─ previews/                             # 预览图 / 动画预览页 / DSH 实机截图
 └─ docs/animations.md
 ```
 
